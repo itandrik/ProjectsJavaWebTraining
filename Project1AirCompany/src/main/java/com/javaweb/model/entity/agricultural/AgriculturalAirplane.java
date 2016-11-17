@@ -36,7 +36,11 @@ public abstract class AgriculturalAirplane extends Aircraft {
 
     protected abstract void setTakeOffSpeed(double speed);
 
-    protected abstract double getLandingSpeed();
+    public double getLandingSpeed() {
+        return landingSpeed;
+    }
 
-    protected abstract double getTakeOffSpeed();
+    public double getTakeOffSpeed() {
+        return takeOffSpeed;
+    }
 }

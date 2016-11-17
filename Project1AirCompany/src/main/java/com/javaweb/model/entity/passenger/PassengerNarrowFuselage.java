@@ -35,6 +35,8 @@ public class PassengerNarrowFuselage extends PassengerAirplane {
                 setComfortGrade(ComfortGrade.TWO_STAR);
             }else if(capacityCarryOnLuggage <= QUANTITY_OF_CARRY_ON_2_STARS){
                 setComfortGrade(ComfortGrade.ONE_STAR);
+            }else{
+                setComfortGrade(ComfortGrade.FOUR_STAR);
             }
         }
     }
@@ -54,4 +56,5 @@ public class PassengerNarrowFuselage extends PassengerAirplane {
     public void setCapacityCarryOnLuggage(int capacityCarryOnLuggage) {
         this.capacityCarryOnLuggage = capacityCarryOnLuggage;
     }
+
 }

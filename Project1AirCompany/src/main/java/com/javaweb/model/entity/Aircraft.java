@@ -8,6 +8,7 @@ import com.javaweb.controller.InitializeAirplanes;
 public abstract class Aircraft {
     private String name;
     //private //double weight;
+    private AirplaneType airplaneType;
     private ManufacturerCountry manufacturerCountry;
     private int engineQuantity;//Inner class with engine
     private double maxSpeed;
@@ -27,6 +28,7 @@ public abstract class Aircraft {
 
     public Aircraft(InitializeAirplanes init) {
         setName(init.name());
+        setAirplaneType(init.getAirplaneType());
         setManufacturerCountry(init.getManufacturerCountry());
         setEngineQuantity(init.getEngineQuantity());
         setPassengerCapacity(init.getPassengerCapacity());
@@ -78,6 +80,10 @@ public abstract class Aircraft {
         this.carryingCapacity = carryingCapacity;
     }
 
+    public void setAirplaneType(AirplaneType airplaneType) {
+        this.airplaneType = airplaneType;
+    }
+
     public String getName() {
         return name;
     }
@@ -116,5 +122,9 @@ public abstract class Aircraft {
 
     public double getCarryingCapacity() {
         return carryingCapacity;
+    }
+
+    public AirplaneType getAirplaneType() {
+        return airplaneType;
     }
 }

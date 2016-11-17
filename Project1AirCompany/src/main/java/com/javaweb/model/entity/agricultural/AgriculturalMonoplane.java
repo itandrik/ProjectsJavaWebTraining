@@ -17,22 +17,12 @@ public class AgriculturalMonoplane extends AgriculturalAirplane {
     @Override
     protected void setLandingSpeed(double speed) {
         this.landingSpeed = COEFFICIENT_LANDING *
-                takeOffSpeed - Math.sqrt(Math.PI);
+                speed - Math.sqrt(Math.PI);
     }
 
     @Override
     protected void setTakeOffSpeed(double speed) {
         this.takeOffSpeed = COEFFICIENT_TAKE_OFF *
-                landingSpeed + Math.sqrt(Math.PI);
-    }
-
-    @Override
-    protected double getLandingSpeed() {
-        return landingSpeed;
-    }
-
-    @Override
-    protected double getTakeOffSpeed() {
-        return takeOffSpeed;
+                speed + Math.sqrt(Math.PI);
     }
 }

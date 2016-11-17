@@ -7,9 +7,30 @@ import com.javaweb.model.entity.AirplaneType;
  * Created by Dron on 13-Nov-16.
  */
 public enum InitializeAirplanes {
-    AN_2СХ(AirplaneType.AGRICULTURAL_BIPLANE, Aircraft.ManufacturerCountry.USSR,
-            1,254,true,2000,140,900,1,1980,1400,30,236,155,-1,false,false, -1,-1,
-            -1,-1,false,-1,false,-1);
+    AN_2СХ(AirplaneType.AGRICULTURAL_BIPLANE,
+            Aircraft.ManufacturerCountry.USSR, 1, 254, true, 2000,
+            42.0/*140*/, 900, 1, 1980, 1400, 30, 236, 155, -1, false, false,
+            -1, -1, -1, -1, false, -1, false, -1),
+    CESSNA_188(AirplaneType.AGRICULTURAL_MONOPLANE,
+            Aircraft.ManufacturerCountry.USA, 1, 195, true, 16000,
+            39.3/*160*/, 628, 1, 921, 835, 25, 150, 183, -1, false, false,
+            -1, -1, -1, -1, false, -1, false, -1),
+    Airbus_A310_200С(AirplaneType.FREIGHT_HEAVY,
+            Aircraft.ManufacturerCountry.FRANCE, 4, 860, true, 15032412,
+            19.1/*1225*/, 6500, 10, 134000, -1, -1, -1, -1, 32834, false,
+            false, 4004, 8, -1, -1, false, -1, false, -1),
+    ALBATROS_L_72(AirplaneType.FREIGHT_LIGHT,
+            Aircraft.ManufacturerCountry.GERMANY, 1, 160, true, 10454, 41.3,
+            931, 4, 700, -1, -1, -1, -1, 700, false, true, 700, 1, -1, -1,
+            false, -1, false, -1),
+    BOEING_747(AirplaneType.PASSENGER_WIDE, Aircraft.ManufacturerCountry.USA,
+            4, 988, true, 1231235434, /*2600*/25.5, 14815.0, 1048, 26100, -1,
+            -1, -1, -1, -1, false, false, -1, -1, 6.5, 76.3, false, -1, true,
+            10),
+    TU_154(AirplaneType.PASSENGER_NARROW, Aircraft.ManufacturerCountry.USSR,
+            3, 950, true, 35000000,/*5300*/27.5, 2650, 180, 18000, -1, -1,
+            -1, -1, -1, false, false, -1, -1, 3.8, 47.9, false, 3000,
+            false, 5);
 
 
     private final AirplaneType airplaneType;
@@ -49,9 +70,9 @@ public enum InitializeAirplanes {
                         double takeOffSpeed, double freightWeight,
                         boolean isUsingForJumping, boolean isPostal,
                         double unitLoadDeviceCapacity, double quantityOfULD,
-                        double fuselageDiameter,double fuselageLength,
+                        double fuselageDiameter, double fuselageLength,
                         boolean hasWifi, int capacityCarryOnLuggage,
-                        boolean hasLunch,int quantityOfStewardess){
+                        boolean hasLunch, int quantityOfStewardess) {
         this.airplaneType = airplaneType;
         this.manufacturerCountry = manufacturerCountry;
         this.engineQuantity = engineQuantity;

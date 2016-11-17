@@ -10,7 +10,7 @@ public abstract class PassengerAirplane extends Aircraft {
     private double fuselageLength;
     private ComfortGrade comfortGrade;
     private static final double FUSELAGE_DIAMETER_WIDE1 = 5.0;
-    private static final double FUSELAGE_DIAMETER_WIDE2 = 6.0;
+    private static final double FUSELAGE_DIAMETER_WIDE2 = 10.0;
     private static final double FUSELAGE_DIAMETER_NARROW = 4.0;
 
     protected enum ComfortGrade {
