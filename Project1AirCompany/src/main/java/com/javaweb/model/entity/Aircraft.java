@@ -127,4 +127,47 @@ public abstract class Aircraft {
     public AirplaneType getAirplaneType() {
         return airplaneType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Aircraft)) return false;
+
+        Aircraft aircraft = (Aircraft) o;
+
+        if (getEngineQuantity() != aircraft.getEngineQuantity()) return false;
+        if (Double.compare(aircraft.getMaxSpeed(), getMaxSpeed()) != 0) return false;
+        if (isHasPilot() != aircraft.isHasPilot()) return false;
+        if (getPrice() != aircraft.getPrice()) return false;
+        if (Double.compare(aircraft.getFuelConsumption(), getFuelConsumption()) != 0) return false;
+        if (Double.compare(aircraft.getRangeOfFlight(), getRangeOfFlight()) != 0) return false;
+        if (getPassengerCapacity() != aircraft.getPassengerCapacity()) return false;
+        if (Double.compare(aircraft.getCarryingCapacity(), getCarryingCapacity()) != 0) return false;
+        if (getName() != null ? !getName().equals(aircraft.getName()) : aircraft.getName() != null) return false;
+        if (getAirplaneType() != aircraft.getAirplaneType()) return false;
+        return getManufacturerCountry() == aircraft.getManufacturerCountry();
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getAirplaneType() != null ? getAirplaneType().hashCode() : 0);
+        result = 31 * result + (getManufacturerCountry() != null ? getManufacturerCountry().hashCode() : 0);
+        result = 31 * result + getEngineQuantity();
+        temp = Double.doubleToLongBits(getMaxSpeed());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (isHasPilot() ? 1 : 0);
+        result = 31 * result + (int) (getPrice() ^ (getPrice() >>> 32));
+        temp = Double.doubleToLongBits(getFuelConsumption());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getRangeOfFlight());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + getPassengerCapacity();
+        temp = Double.doubleToLongBits(getCarryingCapacity());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

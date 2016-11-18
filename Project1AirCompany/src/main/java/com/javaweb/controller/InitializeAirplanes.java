@@ -3,9 +3,7 @@ package com.javaweb.controller;
 import com.javaweb.model.entity.Aircraft;
 import com.javaweb.model.entity.AirplaneType;
 
-/**
- * Created by Dron on 13-Nov-16.
- */
+
 public enum InitializeAirplanes {
     AN_2СХ(AirplaneType.AGRICULTURAL_BIPLANE,
             Aircraft.ManufacturerCountry.USSR, 1, 254, true, 2000,

@@ -6,8 +6,10 @@ import com.javaweb.model.entity.agricultural.AgriculturalAirplane;
 import com.javaweb.model.entity.factory.AgriculturalAirplaneFactory;
 import com.javaweb.model.entity.factory.FreightAirplaneFactory;
 import com.javaweb.model.entity.factory.PassengerAirplaneFactory;
+import com.javaweb.model.entity.freight.FreightAirplane;
 import com.javaweb.model.entity.freight.FreightHeavyWeight;
 import com.javaweb.model.entity.freight.FreightLightWeight;
+import com.javaweb.model.entity.passenger.PassengerAirplane;
 import com.javaweb.model.entity.passenger.PassengerNarrowFuselage;
 import com.javaweb.model.entity.passenger.PassengerWideFuselage;
 import com.javaweb.view.View;
@@ -21,6 +23,7 @@ public class Controller {
     private View view;
     private ModelAirlineCompany<Aircraft> airlineCompany;
     private Scanner scanner;
+
     public Controller(View view, ModelAirlineCompany airlineCompany) {
         this.view = view;
         this.airlineCompany = airlineCompany;
@@ -31,9 +34,9 @@ public class Controller {
         view.printlnMessage(View.HEADER);
         initializeAirlineCompany();
         view.printlnMessage(View.ALL_AIRPLANES);
-        if(airlineCompany.getAllAirplanes().isEmpty()){
+        if (airlineCompany.getAllAirplanes().isEmpty()) {
             view.printlnMessage(View.EMPTY_AIRLINE_COMPANY);
-        }else {
+        } else {
             airlineCompany.getAllAirplanes().stream()
                     .forEach(this::printAircraftInfo);
 
@@ -51,14 +54,14 @@ public class Controller {
 
         view.printlnMessage(View.FUEL_CONSUMPTION_RESULT);
         airlineCompany.findAircraftWithFuelConsumption(
-                lowLimitFuelConsumption,highLimitFuelConsumption).stream()
+                lowLimitFuelConsumption, highLimitFuelConsumption).stream()
                 .forEach(elem -> view.printlnMessage(elem.getName()));
 
     }
 
-    private double readNumberFromConsole(){
+    private double readNumberFromConsole() {
 
-        while(!scanner.hasNext(View.REGEX_NUMBER)){
+        while (!scanner.hasNext(View.REGEX_NUMBER)) {
             view.printlnMessage(View.ERROR_INPUT);
             scanner.next();
         }
@@ -92,7 +95,7 @@ public class Controller {
         view.printWithUnits(View.RANGE_OF_FLIGHT,
                 aircraft.getRangeOfFlight());
 
-        if(aircraft instanceof AgriculturalAirplane){
+        if (aircraft instanceof AgriculturalAirplane) {
             view.printWithUnits(View.AMOUNT_OF_PESTICIDES,
                     ((AgriculturalAirplane) aircraft).getAmountOfPesticides());
             view.printWithUnits(View.SPRAYING_AREA_SQUARE,
@@ -101,30 +104,38 @@ public class Controller {
                     ((AgriculturalAirplane) aircraft).getLandingSpeed());
             view.printWithUnits(View.TAKEOFF_SPEED,
                     ((AgriculturalAirplane) aircraft).getTakeOffSpeed());
-        }else if(aircraft instanceof FreightHeavyWeight){
-            view.printWithUnits(View.UNIT_LOAD_DEVICE_CAPACITY,
-                    ((FreightHeavyWeight) aircraft).getUnitLoadDeviceCapacity());
-            view.printWithUnits(View.QUANTITY_OF_ULD,
-                    ((FreightHeavyWeight) aircraft).getQuantityOfULD());
-        }else if(aircraft instanceof FreightLightWeight){
-            view.printWithUnits(View.IS_POSTAL,
-                    ((FreightLightWeight) aircraft).isPostal());
-            view.printWithUnits(View.IS_USING_FOR_JUMPING,
-                    ((FreightLightWeight) aircraft).isUsingForJumping());
-        }else if (aircraft instanceof PassengerNarrowFuselage){
-            view.printWithUnits(View.CAPACITY_CARRY_ON_LUGGAGE,
-                    ((PassengerNarrowFuselage) aircraft).getCapacityCarryOnLuggage());
-            view.printWithUnits(View.HAS_WIFI,
-                    ((PassengerNarrowFuselage) aircraft).isHasWifi());
+        } else if (aircraft instanceof FreightAirplane) {
+            view.printWithUnits(View.FREIGHT_WEIGHT,
+                    ((FreightAirplane) aircraft).getFreightWeight());
+            if (aircraft instanceof FreightHeavyWeight) {
+                view.printWithUnits(View.UNIT_LOAD_DEVICE_CAPACITY,
+                        ((FreightHeavyWeight) aircraft).getUnitLoadDeviceCapacity());
+                view.printWithUnits(View.QUANTITY_OF_ULD,
+                        ((FreightHeavyWeight) aircraft).getQuantityOfULD());
+            } else if (aircraft instanceof FreightLightWeight) {
+                view.printWithUnits(View.IS_POSTAL,
+                        ((FreightLightWeight) aircraft).isPostal());
+                view.printWithUnits(View.IS_USING_FOR_JUMPING,
+                        ((FreightLightWeight) aircraft).isUsingForJumping());
+            }
+        } else if (aircraft instanceof PassengerAirplane) {
+            view.printWithUnits(View.FUSELAGE_DIAMETER,
+                    ((PassengerAirplane) aircraft).getFuselageDiameter());
+            view.printWithUnits(View.FUSELAGE_LENGTH,
+                    ((PassengerAirplane) aircraft).getFuselageLength());
             view.printWithUnits(View.COMFORT_QUALITY,
-                    ((PassengerNarrowFuselage) aircraft).getComfortGrade());
-        }else if(aircraft instanceof PassengerWideFuselage){
-            view.printWithUnits(View.QUANTITY_OF_STEWARDESS,
-                    ((PassengerWideFuselage) aircraft).getQuantityOfStewardess());
-            view.printWithUnits(View.HAS_LUNCH,
-                    ((PassengerWideFuselage) aircraft).isHasLunch());
-            view.printWithUnits(View.COMFORT_QUALITY,
-                    ((PassengerWideFuselage) aircraft).getComfortGrade());
+                    ((PassengerAirplane) aircraft).getComfortGrade());
+            if (aircraft instanceof PassengerWideFuselage) {
+                view.printWithUnits(View.QUANTITY_OF_STEWARDESS,
+                        ((PassengerWideFuselage) aircraft).getQuantityOfStewardess());
+                view.printWithUnits(View.HAS_LUNCH,
+                        ((PassengerWideFuselage) aircraft).isHasLunch());
+            } else if (aircraft instanceof PassengerNarrowFuselage) {
+                view.printWithUnits(View.CAPACITY_CARRY_ON_LUGGAGE,
+                        ((PassengerNarrowFuselage) aircraft).getCapacityCarryOnLuggage());
+                view.printWithUnits(View.HAS_WIFI,
+                        ((PassengerNarrowFuselage) aircraft).isHasWifi());
+            }
         }
         view.printlnMessage(View.SEPARATOR);
     }
