@@ -6,11 +6,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by Dron on 12-Nov-16.
+ * ModelAirlineCompany.java
+ * <p>
+ * Class that defines collection for all objects, that
+ * extends {@link Aircraft}. It is using for all tasks from
+ * the variant 9. Also here are some additional methods for
+ * deleting and adding airplanes to the container.
+ * Container - is TreeMap. It is used, because of easy filtering.
+ * Key - object with aircraft, value - quantity of such airplanes
+ * in the airline company.
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
  */
 public class ModelAirlineCompany<T extends Aircraft> {
+    /**
+     * Container for Aircrafts
+     */
     private Map<T, Integer> aircraftContainer;
 
+    /**
+     * Constructor of our airline company.
+     * Here are comparator for initial sorting
+     * by range of flight.
+     */
     public ModelAirlineCompany() {
         Comparator<T> comparator = (p1, p2) -> {
             if (p1.equals(p2)) {
@@ -24,6 +44,13 @@ public class ModelAirlineCompany<T extends Aircraft> {
         aircraftContainer = new TreeMap<>(comparator);
     }
 
+    /**
+     * Adding some airplane to airline company.
+     * If there will be two equal airplanes, value of
+     * entry set will increase.
+     *
+     * @param aircraft instance of some airplane
+     */
     public void addAircraft(T aircraft) {
         if (aircraft == null) {
             return;
@@ -35,10 +62,16 @@ public class ModelAirlineCompany<T extends Aircraft> {
         } else {
             aircraftContainer.put(aircraft, 1);
         }
-        int i = aircraft.hashCode();
-
     }
 
+    /**
+     * Removing some airplane from airline company.
+     * If there will be two equal airplanes, value of
+     * entry set will decrease.
+     *
+     * @param aircraft instance of some airplane
+     * @return has been removed or not
+     */
     public boolean removeAircraft(T aircraft) {
         if (aircraft == null) {
             return false;
@@ -57,19 +90,35 @@ public class ModelAirlineCompany<T extends Aircraft> {
         return false;
     }
 
+    /**
+     * Checking is our airline company is empty
+     *
+     * @return boolean value of emptiness
+     */
     public boolean isEmpty() {
         return aircraftContainer.isEmpty();
     }
 
+    /**
+     * Task from variant #9. Getting summary passenger capacity in the
+     * airline company.
+     *
+     * @return overall passenger capacity in the airline company
+     */
     public long getOverallPassengerCapacity() {
-        if (aircraftContainer.isEmpty()) {
-            return 0;
-        }
+        Objects.requireNonNull(aircraftContainer);
+
         return aircraftContainer.entrySet().stream()
                 .mapToLong(elem -> elem.getKey().getPassengerCapacity())
                 .sum();
     }
 
+    /**
+     * Task from variant #9. Getting summary carrying capacity in the
+     * airline company.
+     *
+     * @return overall carrying capacity in the airline company
+     */
     public double getOverallCarryingCapacity() {
         if (aircraftContainer.isEmpty()) {
             return 0;
@@ -79,6 +128,14 @@ public class ModelAirlineCompany<T extends Aircraft> {
                 .sum();
     }
 
+    /**
+     * Task from variant #9. Getting list of airplanes, which has
+     * some special diapason of fuel consumption(between from and to)
+     *
+     * @param from low bound of fuel consumption
+     * @param to   high bound of fuel consumption
+     * @return list of airplanes with special fuel consumption
+     */
     public List<T> findAircraftWithFuelConsumption(double from, double to) {
         if (aircraftContainer.isEmpty()) {
             return new ArrayList<>();
@@ -90,6 +147,10 @@ public class ModelAirlineCompany<T extends Aircraft> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *
+     * @return list with all airplanes in the airline company
+     */
     public List<T> getAllAirplanes() {
         if (aircraftContainer.isEmpty()) {
             return new ArrayList<>();

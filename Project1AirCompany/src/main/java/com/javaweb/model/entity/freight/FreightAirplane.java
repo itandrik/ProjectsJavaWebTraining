@@ -1,19 +1,48 @@
 package com.javaweb.model.entity.freight;
 
 
-import com.javaweb.model.entity.Aircraft;
 import com.javaweb.controller.InitializeAirplanes;
+import com.javaweb.model.entity.Aircraft;
 
+/**
+ * FreightAirplane.java
+ * <p>
+ * Class that contains all basic fields and functions
+ * that any cargo airplane can have
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
+ */
 public abstract class FreightAirplane extends Aircraft {
+    /**
+     * Weight, that some cargo airplane can consist
+     */
     private double freightWeight;
+    /**
+     * Coefficient that defines heavy aircraft
+     */
     private static final int WEIGHT_OF_HEAVY_AIRCRAFT = 136;
+    /**
+     * Coefficient that defines light aircraft
+     */
     private static final int WEIGHT_OF_LIGHT_AIRCRAFT = 7;
 
+    /**
+     * Constructor with setting {@link #freightWeight}
+     * @param init - initialise values for some airplane
+     */
     public FreightAirplane(InitializeAirplanes init) {
         super(init);
         this.freightWeight = init.getFreightWeight();
     }
 
+    /**
+     * Create instance of cargo airplane checking freight weight
+     *
+     * @param init initialise values for some airplane
+     * @return instance of {@link FreightAirplane}
+     */
     public static FreightAirplane getInstanceFreightAirplane(
             InitializeAirplanes init) {
         if (init.getFreightWeight() >= WEIGHT_OF_HEAVY_AIRCRAFT) {

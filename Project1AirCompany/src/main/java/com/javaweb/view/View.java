@@ -1,11 +1,26 @@
 package com.javaweb.view;
 
 /**
- * Created by Dron on 12-Nov-16.
+ * View.java
+ * <p>
+ *
+ * It is class, which contains String constants
+ * in order to show tips for user in the console.
+ * In the future we can change UI by simple steps.
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 06 Nov 2016
  */
+
 public class View {
+    /**
+     * Header for cute console view.
+     */
     public static final String HEADER =
             "<---------------- Airline company ---------------->";
+
+    /* Strings for showing and entering some information. Work with console*/
     public static final String OVERALL_CARRYING_CAPACITY =
             "Summary carrying capacity in all airplanes of your company : ";
     public static final String OVERALL_PASSENGER_CAPACITY =
@@ -22,13 +37,22 @@ public class View {
             "Your airplanes(Sorted by range of flight) :";
     public static final String EMPTY_AIRLINE_COMPANY =
             "Empty hangar! No airplanes in the airline company";
-    public static final String ERROR_INPUT  =
+    /**
+     * Error message while input from console
+     */
+    public static final String ERROR_INPUT =
             "Error input! You should enter real" +
                     " or int value! Repeat please...";
+
+    /* Helper strings for formatting */
     public static final String TAB = "\t";
     public static final String NEXT_LINE = "\n";
+    /**
+     * Regular expression for checking correct input value from console
+     */
     public static final String REGEX_NUMBER = "(\\d+(\\.\\d+)?)";
 
+    /* Strings for formatted output all fields from Aircraft */
     public static final String NAME_OF_AIRCRAFT = "Name : %s";
     public static final String AIRPLANE_TYPE = "Type of airplane : %s";
     public static final String MANUFACTURER_COUNTRY = "Manufacturer : %s";
@@ -72,20 +96,37 @@ public class View {
             "Amount of stewardesses : %d [pсs]";
     public static final String COMFORT_QUALITY =
             "Quality of this aircraft : %s";
+    /**
+     * Separator string, to separate each Aircraft visually
+     */
     public static final String SEPARATOR = "_________________________________";
 
+    /**
+     * @param message - array of strings for printing
+     *                to console without next line symbol.
+     */
     public void printMessage(Object... message) {
         for (Object str : message) {
             System.out.print(str);
         }
     }
 
+    /**
+     * @param message - array of strings for printing
+     *                to console with next line symbol.
+     */
     public void printlnMessage(Object... message) {
         for (Object str : message) {
             System.out.println(str);
         }
     }
 
+    /**
+     * Printing all fields from {@link com.javaweb.model.entity.Aircraft}
+     *
+     * @param message parameter message.
+     * @param data    the actual parameter.
+     */
     public void printWithUnits(String message, Object data) {
         printMessage(TAB, String.format(message, data), NEXT_LINE);
     }

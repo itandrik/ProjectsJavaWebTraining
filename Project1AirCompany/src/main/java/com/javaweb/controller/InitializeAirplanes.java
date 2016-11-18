@@ -3,7 +3,16 @@ package com.javaweb.controller;
 import com.javaweb.model.entity.Aircraft;
 import com.javaweb.model.entity.AirplaneType;
 
-
+/**
+ * InitializeAirplanes.java
+ * <p>
+ * Class that contains all init values for Airplanes.
+ * Here are different types of airplanes
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
+ */
 public enum InitializeAirplanes {
     AN_2СХ(AirplaneType.AGRICULTURAL_BIPLANE,
             Aircraft.ManufacturerCountry.USSR, 1, 254, true, 2000,
@@ -57,7 +66,43 @@ public enum InitializeAirplanes {
     private final boolean hasLunch;
     private final int quantityOfStewardess;
 
-
+    /**
+     * Constructor that initialise some aircraft
+     *
+     * @param airplaneType           - {@link AirplaneType}
+     * @param manufacturerCountry    - {@link com.javaweb.model.entity.Aircraft.ManufacturerCountry}
+     * @param engineQuantity         - amount of engines, that airplane can have
+     * @param maxSpeed               - maximal speed of airplane
+     * @param hasPilot               - is this aircraft has pilot or not
+     * @param price                  - price of aircraft in dollars
+     * @param fuelConsumption        - fuel consumption of aircraft in g/pass-km
+     * @param rangeOfFlight          - range, that airplane can fly in km
+     * @param passengerCapacity      - total passenger capacity in aircraft
+     * @param carryingCapacity       - total carrying capacity in aircraft
+     * @param amountOfPesticides     - for {@link com.javaweb.model.entity.agricultural.AgriculturalAirplane},
+     *                               that shows amount of pesticides,
+     *                               that aircraft can contain
+     * @param sprayingAreaSquare     - for {@link com.javaweb.model.entity.agricultural.AgriculturalAirplane},
+     *                               that shows square, that aircraft can cover
+     * @param landingSpeed           - approximately speed of landing
+     * @param takeOffSpeed           - approximately takeoff speed
+     * @param freightWeight          - weight that can contain {@link com.javaweb.model.entity.freight.FreightAirplane}
+     * @param isUsingForJumping      - is this aircraft people use for skydiving
+     * @param isPostal               - is this aircraft using for post.
+     * @param unitLoadDeviceCapacity - total weight, that some unit load
+     *                               device can consist.
+     * @param quantityOfULD          - total number of unit load devices, that
+     *                               some aircraft can contain
+     * @param fuselageDiameter       - diameter of fuselage in meters
+     * @param fuselageLength         - length of fuselage in meters
+     * @param hasWifi                - has this {@link com.javaweb.model.entity.passenger.PassengerNarrowFuselage}
+     *                               wifi or not.
+     * @param capacityCarryOnLuggage - total capacity of carry on luggage in
+     *                               {@link com.javaweb.model.entity.passenger.PassengerNarrowFuselage}
+     * @param hasLunch               - has this {@link com.javaweb.model.entity.passenger.PassengerWideFuselage}
+     *                               lunch during flight or not.
+     * @param quantityOfStewardess   - number of stewardesses in the airplane
+     */
     InitializeAirplanes(AirplaneType airplaneType,
                         Aircraft.ManufacturerCountry manufacturerCountry,
                         int engineQuantity, double maxSpeed, boolean hasPilot,

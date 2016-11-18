@@ -3,16 +3,52 @@ package com.javaweb.model.entity.passenger;
 import com.javaweb.controller.InitializeAirplanes;
 
 /**
- * Created by Dron on 13-Nov-16.
+ * PassengerWideFuselage.java
+ * <p>
+ * Class that contains all basic fields and methods,
+ * which is important for passenger airplane with
+ * wide fuselage
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
  */
 public class PassengerWideFuselage extends PassengerAirplane {
+    /**
+     * Has this aircraft lunch during flight or not.
+     */
     private boolean hasLunch;
+    /**
+     * Number of stewardesses in the airplane
+     */
     private int quantityOfStewardess;
+    /**
+     * Coefficient of stewardess quantity,
+     * that we need in order to calculate 5-stars airplane
+     */
     private static final byte QUANTITY_OF_STEWARDESS_5_STARS = 10;
+    /**
+     * Coefficient of stewardess quantity,
+     * that we need in order to calculate 4-stars airplane
+     */
     private static final byte QUANTITY_OF_STEWARDESS_4_STARS = 7;
+    /**
+     * Coefficient of stewardess quantity,
+     * that we need in order to calculate 3-stars airplane
+     */
     private static final byte QUANTITY_OF_STEWARDESS_3_STARS = 5;
+    /**
+     * Coefficient of stewardess quantity,
+     * that we need in order to calculate 2-stars airplane
+     */
     private static final byte QUANTITY_OF_STEWARDESS_2_STARS = 3;
 
+    /**
+     * Constructor with setting {@link #quantityOfStewardess}
+     * and {@link #hasLunch}
+     *
+     * @param init - initialise values for some airplane
+     */
     public PassengerWideFuselage(InitializeAirplanes init) {
         super(init);
         this.hasLunch = init.hasLunch();
@@ -36,6 +72,12 @@ public class PassengerWideFuselage extends PassengerAirplane {
         this.quantityOfStewardess = quantityOfStewardess;
     }
 
+    /**
+     * Checking comfort grade in stars and setting
+     * this parameter to {@link #comfortGrade}.
+     * It is based on {@link #hasLunch} and
+     * {@link #quantityOfStewardess}
+     */
     @Override
     public void checkComfort() {
         if (hasLunch) {

@@ -3,29 +3,76 @@ package com.javaweb.model.entity;
 import com.javaweb.controller.InitializeAirplanes;
 
 /**
- * Created by Dron on 13-Nov-16.
+ * Aircraft.java
+ * <p>
+ * Abstract class that is parent for all
+ * airplanes in this factory. Here are initialization
+ * of all basic parameters of airplane.
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
  */
 public abstract class Aircraft {
+    /**
+     * Name of some airplane
+     */
     private String name;
-    //private //double weight;
+    /**
+     * Type of airplane from hierarchy {@link AirplaneType}
+     */
     private AirplaneType airplaneType;
+    /**
+     * Country, that produced airplane {@link ManufacturerCountry}
+     */
     private ManufacturerCountry manufacturerCountry;
-    private int engineQuantity;//Inner class with engine
+    /**
+     * Amount of engines, that airplane can have
+     */
+    private int engineQuantity;
+    /**
+     * Maximal speed of airplane
+     */
     private double maxSpeed;
+    /**
+     * Is this aircraft has pilot or not
+     */
     private boolean hasPilot;
+    /**
+     * Price of aircraft in dollars
+     */
     private long price;
+    /**
+     * Fuel consumption of aircraft in g/pass-km
+     */
     private double fuelConsumption;
+    /**
+     * Range, that airplane can fly in km
+     */
     private double rangeOfFlight;
+    /**
+     * Total passenger capacity in aircraft
+     */
     private int passengerCapacity;
+    /**
+     * Total carrying capacity in aircraft
+     */
     private double carryingCapacity;
 
     /**
-     * Created by Dron on 13-Nov-16.
+     * Enum class, that defines all countries, that can
+     * produce some aircraft
      */
     public enum ManufacturerCountry {
         USSR, FRANCE, USA, GERMANY
     }
 
+    /**
+     * Constructor, that initialise all fields using
+     * parameter init.
+     *
+     * @param init - initialise values for some airplane
+     */
     public Aircraft(InitializeAirplanes init) {
         setName(init.name());
         setAirplaneType(init.getAirplaneType());
@@ -126,48 +173,5 @@ public abstract class Aircraft {
 
     public AirplaneType getAirplaneType() {
         return airplaneType;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Aircraft)) return false;
-
-        Aircraft aircraft = (Aircraft) o;
-
-        if (getEngineQuantity() != aircraft.getEngineQuantity()) return false;
-        if (Double.compare(aircraft.getMaxSpeed(), getMaxSpeed()) != 0) return false;
-        if (isHasPilot() != aircraft.isHasPilot()) return false;
-        if (getPrice() != aircraft.getPrice()) return false;
-        if (Double.compare(aircraft.getFuelConsumption(), getFuelConsumption()) != 0) return false;
-        if (Double.compare(aircraft.getRangeOfFlight(), getRangeOfFlight()) != 0) return false;
-        if (getPassengerCapacity() != aircraft.getPassengerCapacity()) return false;
-        if (Double.compare(aircraft.getCarryingCapacity(), getCarryingCapacity()) != 0) return false;
-        if (getName() != null ? !getName().equals(aircraft.getName()) : aircraft.getName() != null) return false;
-        if (getAirplaneType() != aircraft.getAirplaneType()) return false;
-        return getManufacturerCountry() == aircraft.getManufacturerCountry();
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getAirplaneType() != null ? getAirplaneType().hashCode() : 0);
-        result = 31 * result + (getManufacturerCountry() != null ? getManufacturerCountry().hashCode() : 0);
-        result = 31 * result + getEngineQuantity();
-        temp = Double.doubleToLongBits(getMaxSpeed());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (isHasPilot() ? 1 : 0);
-        result = 31 * result + (int) (getPrice() ^ (getPrice() >>> 32));
-        temp = Double.doubleToLongBits(getFuelConsumption());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(getRangeOfFlight());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + getPassengerCapacity();
-        temp = Double.doubleToLongBits(getCarryingCapacity());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
     }
 }

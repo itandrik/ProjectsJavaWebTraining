@@ -4,36 +4,68 @@ package com.javaweb.model.entity.agricultural;
 import com.javaweb.model.entity.Aircraft;
 import com.javaweb.controller.InitializeAirplanes;
 
+/**
+ * AgriculturalAirplane.java
+ * <p>
+ * Class that contains all basic fields and functions
+ * that any agricultural airplane cane have
+ *
+ * @author Andrii Chernysh
+ * @version 1.0
+ * @since 18 Nov 2016
+ */
 public abstract class AgriculturalAirplane extends Aircraft {
-    protected double amountOfPesticides;
-    protected double sprayingAreaSquare;
+    /**
+     * Total number of pesticides, that airplane can contain
+     */
+    private double amountOfPesticides;
+    /**
+     * Total are, that airplane can cover during spraying
+     */
+    private double sprayingAreaSquare;
+    /**
+     * Speed of landing
+     */
     protected double landingSpeed;
+    /**
+     * Speed to take off
+     */
     protected double takeOffSpeed;
 
+    /**
+     * Constructor to create instance of any agricultural
+     * airplane.
+     *
+     * @param init - values with all data, that we need
+     */
     public AgriculturalAirplane(InitializeAirplanes init) {
         super(init);
         this.amountOfPesticides = init.getAmountOfPesticides();
         this.sprayingAreaSquare = init.getSprayingAreaSquare();
     }
 
-    public double getAmountOfPesticides() {
-        return amountOfPesticides;
-    }
-
     public void setAmountOfPesticides(double amountOfPesticides) {
         this.amountOfPesticides = amountOfPesticides;
-    }
-
-    public double getSprayingAreaSquare() {
-        return sprayingAreaSquare;
     }
 
     public void setSprayingAreaSquare(double sprayingAreaSquare) {
         this.sprayingAreaSquare = sprayingAreaSquare;
     }
 
+    /**
+     * All agricultural airplanes' landing speed should be
+     * calculated by different formulas
+     *
+     * @param speed speed of landing from init value
+     */
     protected abstract void setLandingSpeed(double speed);
 
+    /**
+     * All agricultural airplanes' takeoff speed should be
+     * calculated by different formulas
+     *
+     * @param speed speed of takeoff from init value
+     */
     protected abstract void setTakeOffSpeed(double speed);
 
     public double getLandingSpeed() {
@@ -42,5 +74,13 @@ public abstract class AgriculturalAirplane extends Aircraft {
 
     public double getTakeOffSpeed() {
         return takeOffSpeed;
+    }
+
+    public double getSprayingAreaSquare() {
+        return sprayingAreaSquare;
+    }
+
+    public double getAmountOfPesticides() {
+        return amountOfPesticides;
     }
 }
