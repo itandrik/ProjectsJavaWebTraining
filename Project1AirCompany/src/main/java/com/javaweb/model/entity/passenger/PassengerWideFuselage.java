@@ -10,8 +10,7 @@ import com.javaweb.controller.InitializeAirplanes;
  * wide fuselage
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class PassengerWideFuselage extends PassengerAirplane {
     /**
@@ -95,5 +94,14 @@ public class PassengerWideFuselage extends PassengerAirplane {
             setComfortGrade(ComfortGrade.TWO_STAR);
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString(
+                        "HAS_LUNCH"), hasLunch) +
+                String.format(bundle.getString(
+                        "QUANTITY_OF_STEWARDESS"), quantityOfStewardess);
     }
 }

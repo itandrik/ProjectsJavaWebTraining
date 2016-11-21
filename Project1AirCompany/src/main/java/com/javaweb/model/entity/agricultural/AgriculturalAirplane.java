@@ -1,18 +1,17 @@
 package com.javaweb.model.entity.agricultural;
 
 
-import com.javaweb.model.entity.Aircraft;
 import com.javaweb.controller.InitializeAirplanes;
+import com.javaweb.model.entity.Aircraft;
 
 /**
  * AgriculturalAirplane.java
  * <p>
  * Class that contains all basic fields and functions
- * that any agricultural airplane cane have
+ * that any agricultural airplane can have
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public abstract class AgriculturalAirplane extends Aircraft {
     /**
@@ -82,5 +81,14 @@ public abstract class AgriculturalAirplane extends Aircraft {
 
     public double getAmountOfPesticides() {
         return amountOfPesticides;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString("AMOUNT_OF_PESTICIDES"), amountOfPesticides) +
+                String.format(bundle.getString("SPRAYING_AREA_SQUARE"), sprayingAreaSquare) +
+                String.format(bundle.getString("LANDING_SPEED"), landingSpeed) +
+                String.format(bundle.getString("TAKEOFF_SPEED"), takeOffSpeed);
     }
 }

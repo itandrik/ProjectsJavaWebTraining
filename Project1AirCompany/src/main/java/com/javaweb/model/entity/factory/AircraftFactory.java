@@ -12,8 +12,7 @@ import com.javaweb.model.entity.passenger.PassengerAirplane;
  * Interface that we need to implement Abstract Factory pattern
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public interface AircraftFactory {
     /**

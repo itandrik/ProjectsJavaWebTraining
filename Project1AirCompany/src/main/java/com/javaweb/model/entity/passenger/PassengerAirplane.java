@@ -11,8 +11,7 @@ import com.javaweb.model.entity.Aircraft;
  * that any passenger airplane can have
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public abstract class PassengerAirplane extends Aircraft {
     /**
@@ -86,6 +85,7 @@ public abstract class PassengerAirplane extends Aircraft {
         this.fuselageDiameter = init.getFuselageDiameter();
         this.fuselageLength = init.getFuselageLength();
     }
+
     /**
      * Create instance of passenger airplane checking
      * fuselage diameter.
@@ -127,5 +127,16 @@ public abstract class PassengerAirplane extends Aircraft {
 
     public void setComfortGrade(ComfortGrade comfortGrade) {
         this.comfortGrade = comfortGrade;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString(
+                        "FUSELAGE_DIAMETER"), fuselageDiameter) +
+                String.format(bundle.getString(
+                        "FUSELAGE_LENGTH"), fuselageLength) +
+                String.format(bundle.getString(
+                        "COMFORT_QUALITY"), comfortGrade);
     }
 }

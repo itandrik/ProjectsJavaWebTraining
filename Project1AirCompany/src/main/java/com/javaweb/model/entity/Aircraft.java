@@ -2,6 +2,8 @@ package com.javaweb.model.entity;
 
 import com.javaweb.controller.InitializeAirplanes;
 
+import java.util.ResourceBundle;
+
 /**
  * Aircraft.java
  * <p>
@@ -10,8 +12,7 @@ import com.javaweb.controller.InitializeAirplanes;
  * of all basic parameters of airplane.
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public abstract class Aircraft {
     /**
@@ -58,6 +59,9 @@ public abstract class Aircraft {
      * Total carrying capacity in aircraft
      */
     private double carryingCapacity;
+
+    protected ResourceBundle bundle
+            = ResourceBundle.getBundle("com/javaweb/AircraftParameters");
 
     /**
      * Enum class, that defines all countries, that can
@@ -173,5 +177,20 @@ public abstract class Aircraft {
 
     public AirplaneType getAirplaneType() {
         return airplaneType;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(bundle.getString("NAME_OF_AIRCRAFT"),name)  +
+                String.format(bundle.getString("AIRPLANE_TYPE"),airplaneType) +
+                String.format(bundle.getString("MANUFACTURER_COUNTRY"),manufacturerCountry) +
+                String.format(bundle.getString("ENGINE_QUANTITY"),engineQuantity) +
+                String.format(bundle.getString("MAX_SPEED"),maxSpeed) +
+                String.format(bundle.getString("HAS_PILOT"),hasPilot) +
+                String.format(bundle.getString("PRICE"),price) +
+                String.format(bundle.getString("FUEL_CONSUMPTION"),fuelConsumption) +
+                String.format(bundle.getString("RANGE_OF_FLIGHT"),rangeOfFlight) +
+                String.format(bundle.getString("PASSENGER_CAPACITY"),passengerCapacity) +
+                String.format(bundle.getString("CARRYING_CAPACITY"),carryingCapacity);
     }
 }

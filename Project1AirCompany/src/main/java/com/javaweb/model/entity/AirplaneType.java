@@ -7,8 +7,7 @@ package com.javaweb.model.entity;
  * can be in the airplane company
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public enum AirplaneType {
     PASSENGER_NARROW, PASSENGER_WIDE, AGRICULTURAL_MONOPLANE,

@@ -2,6 +2,7 @@ package com.javaweb.model.entity.freight;
 
 
 import com.javaweb.controller.InitializeAirplanes;
+
 /**
  * FreightLightWeight.java
  * <p>
@@ -9,8 +10,7 @@ import com.javaweb.controller.InitializeAirplanes;
  * which is important for light cargo aircraft
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class FreightLightWeight extends FreightAirplane {
     /**
@@ -48,5 +48,14 @@ public class FreightLightWeight extends FreightAirplane {
 
     public void setPostal(boolean postal) {
         isPostal = postal;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString(
+                        "IS_USING_FOR_JUMPING"), isUsingForJumping) +
+                String.format(bundle.getString(
+                        "IS_POSTAL"), isPostal);
     }
 }

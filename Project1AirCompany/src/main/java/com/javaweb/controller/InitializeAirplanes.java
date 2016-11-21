@@ -10,8 +10,7 @@ import com.javaweb.model.entity.AirplaneType;
  * Here are different types of airplanes
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public enum InitializeAirplanes {
     AN_2СХ(AirplaneType.AGRICULTURAL_BIPLANE,

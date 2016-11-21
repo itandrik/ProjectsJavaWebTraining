@@ -11,8 +11,7 @@ import com.javaweb.model.entity.Aircraft;
  * that any cargo airplane can have
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public abstract class FreightAirplane extends Aircraft {
     /**
@@ -30,6 +29,7 @@ public abstract class FreightAirplane extends Aircraft {
 
     /**
      * Constructor with setting {@link #freightWeight}
+     *
      * @param init - initialise values for some airplane
      */
     public FreightAirplane(InitializeAirplanes init) {
@@ -62,5 +62,9 @@ public abstract class FreightAirplane extends Aircraft {
         this.freightWeight = freightWeight;
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString("FREIGHT_WEIGHT"), freightWeight);
+    }
 }

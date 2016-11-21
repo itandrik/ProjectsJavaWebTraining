@@ -10,8 +10,7 @@ import com.javaweb.controller.InitializeAirplanes;
  * which is important for heavy cargo aircraft
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class FreightHeavyWeight extends FreightAirplane {
     /**
@@ -40,6 +39,7 @@ public class FreightHeavyWeight extends FreightAirplane {
      * Checking is freight weight correct of not.
      * freight weight of some cargo aircraft should be less than
      * unit load device capacity * quantity of unit load devices
+     *
      * @return is correct freight weight or not
      */
     public boolean checkCorrectWeight() {
@@ -60,5 +60,14 @@ public class FreightHeavyWeight extends FreightAirplane {
 
     public void setQuantityOfULD(double quantityOfULD) {
         this.quantityOfULD = quantityOfULD;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString(
+                        "UNIT_LOAD_DEVICE_CAPACITY"), unitLoadDeviceCapacity) +
+                String.format(bundle.getString(
+                        "QUANTITY_OF_ULD"), quantityOfULD);
     }
 }

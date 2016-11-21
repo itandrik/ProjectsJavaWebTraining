@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
  * in the airline company.
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class ModelAirlineCompany<T extends Aircraft> {
     /**
@@ -148,7 +147,6 @@ public class ModelAirlineCompany<T extends Aircraft> {
     }
 
     /**
-     *
      * @return list with all airplanes in the airline company
      */
     public List<T> getAllAirplanes() {

@@ -10,8 +10,7 @@ import com.javaweb.controller.InitializeAirplanes;
  * narrow fuselage
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class PassengerNarrowFuselage extends PassengerAirplane {
     /**
@@ -64,20 +63,20 @@ public class PassengerNarrowFuselage extends PassengerAirplane {
      */
     @Override
     public void checkComfort() {
-        if(hasWifi){
-            if(capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_5_STARS){
+        if (hasWifi) {
+            if (capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_5_STARS) {
                 setComfortGrade(ComfortGrade.FIVE_STAR);
-            }else if((capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_3_STARS) &&
-                    (capacityCarryOnLuggage <= QUANTITY_OF_CARRY_ON_4_STARS)){
+            } else if ((capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_3_STARS) &&
+                    (capacityCarryOnLuggage <= QUANTITY_OF_CARRY_ON_4_STARS)) {
                 setComfortGrade(ComfortGrade.THREE_STAR);
             }
-        }else{
-            if((capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_2_STARS) &&
-                    capacityCarryOnLuggage < QUANTITY_OF_CARRY_ON_4_STARS){
+        } else {
+            if ((capacityCarryOnLuggage >= QUANTITY_OF_CARRY_ON_2_STARS) &&
+                    capacityCarryOnLuggage < QUANTITY_OF_CARRY_ON_4_STARS) {
                 setComfortGrade(ComfortGrade.TWO_STAR);
-            }else if(capacityCarryOnLuggage <= QUANTITY_OF_CARRY_ON_2_STARS){
+            } else if (capacityCarryOnLuggage <= QUANTITY_OF_CARRY_ON_2_STARS) {
                 setComfortGrade(ComfortGrade.ONE_STAR);
-            }else{
+            } else {
                 setComfortGrade(ComfortGrade.FOUR_STAR);
             }
         }
@@ -99,4 +98,12 @@ public class PassengerNarrowFuselage extends PassengerAirplane {
         this.capacityCarryOnLuggage = capacityCarryOnLuggage;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(bundle.getString(
+                        "HAS_WIFI"), hasWifi) +
+                String.format(bundle.getString(
+                        "CAPACITY_CARRY_ON_LUGGAGE"), capacityCarryOnLuggage);
+    }
 }

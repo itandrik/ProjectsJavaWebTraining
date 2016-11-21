@@ -3,6 +3,15 @@ package com.javaweb.model.entity.agricultural;
 
 import com.javaweb.controller.InitializeAirplanes;
 
+/**
+ * AgriculturalBiplane.java
+ * <p>
+ * Class that contains all basic fields and functions
+ * that any agricultural plane with 2 wings can have
+ *
+ * @author Andrii Chernysh
+ * @version 1.0, 18 Nov 2016
+ */
 public class AgriculturalBiplane extends AgriculturalAirplane {
     /**
      * Coefficient, that we need in order to calculate
@@ -29,7 +38,6 @@ public class AgriculturalBiplane extends AgriculturalAirplane {
     }
 
     /**
-     *
      * @param speed speed of landing from init value
      */
     @Override
@@ -39,7 +47,6 @@ public class AgriculturalBiplane extends AgriculturalAirplane {
     }
 
     /**
-     *
      * @param speed speed of takeoff from init value
      */
     @Override
@@ -47,5 +54,6 @@ public class AgriculturalBiplane extends AgriculturalAirplane {
         this.takeOffSpeed = COEFFICIENT_TAKE_OFF *
                 speed / Math.sqrt(Math.PI);
     }
+
 }
 

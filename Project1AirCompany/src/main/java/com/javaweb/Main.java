@@ -12,11 +12,13 @@ import com.javaweb.view.View;
  * Here we will start controller {@link Controller}
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 06 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class Main {
     public static void main(String[] args) {
+        /*ResourceBundle bundle = ResourceBundle.getBundle("com/javaweb/AircraftParameters");
+        System.out.println(MessageFormat.format(bundle.getString("NAME_OF_AIRCRAFT"),"fsdf"));
+        System.exit(0);*/
         /* Creating instance of view */
         View view = new View();
 

@@ -14,8 +14,7 @@ import com.javaweb.model.entity.passenger.PassengerAirplane;
  * Abstract factory pattern
  *
  * @author Andrii Chernysh
- * @version 1.0
- * @since 18 Nov 2016
+ * @version 1.0, 18 Nov 2016
  */
 public class AgriculturalAirplaneFactory implements AircraftFactory {
 
@@ -29,6 +28,7 @@ public class AgriculturalAirplaneFactory implements AircraftFactory {
     public FreightAirplane getFreightAirplane(InitializeAirplanes initValues) {
         return null;
     }
+
     /**
      * Stub
      *
