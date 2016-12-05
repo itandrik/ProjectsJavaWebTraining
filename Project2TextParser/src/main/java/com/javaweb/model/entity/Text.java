@@ -1,6 +1,8 @@
 package com.javaweb.model.entity;
 
 
+import java.util.List;
+
 public class Text implements LexicalElement{
     private Composite sentences;
 
@@ -13,4 +15,17 @@ public class Text implements LexicalElement{
         sentences.add(element);
     }
 
+    @Override
+    public List<LexicalElement> getListOfElements() {
+        return sentences.getListOfElements();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("Programming book : \n");
+        getListOfElements().forEach(
+                (elem) -> result.append(elem.toString())
+        );
+        return result.toString();
+    }
 }

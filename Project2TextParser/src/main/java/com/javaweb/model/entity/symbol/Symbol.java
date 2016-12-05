@@ -1,14 +1,20 @@
 package com.javaweb.model.entity.symbol;
 
 
-import com.javaweb.model.entity.Regex;
 import com.javaweb.model.entity.LexicalElement;
+import com.javaweb.model.entity.Regex;
 
-public abstract class Symbol implements LexicalElement{
+import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.WeakHashMap;
+
+public abstract class Symbol implements LexicalElement {
+    private static final WeakHashMap<Symbol, WeakReference<Symbol>>
+            flyweightSymbol = new WeakHashMap<>();
     private char symbol;
     private boolean isLetter = false;
     private boolean isWhitespace = false;
-    private boolean isSeparateSentence = false;
+    private boolean isSentenceSeparator = false;
     private boolean isPunctuation = false;
 
     public Symbol(char symbol) {
@@ -20,20 +26,36 @@ public abstract class Symbol implements LexicalElement{
         //this is leaf node so this method is not applicable to this class.
     }
 
+    @Override
+    public List<LexicalElement> getListOfElements() {
+        //this is leaf node so this method is not applicable to this class.
+        return null;
+    }
+
     public static Symbol createSymbol(char symbol) {
-        String symbolStr = String.valueOf(symbol);
+        String symbolCastedToString = String.valueOf(symbol);
+
+        /* We are unconcerned with object creation cost,
+        we are reducing overall memory consumption */
+        Symbol symbolWrapper;
         if (Regex.SENTENCE_SEPARATOR_PATTERN
-                .matcher(symbolStr).matches()){
-            return new SeparateSentenceSign(symbol);
-        } else if(Regex.WHITESPACE_PATTERN
-                .matcher(symbolStr).matches()) {
-            return new WhitespaceSign(symbol);
-        } else if(Regex.PUNCTUATION_PATTERN
-                .matcher(symbolStr).matches()){
-            return new PunctuationSign(symbol);
-        }else{
-            return new Letter(symbol);
+                .matcher(symbolCastedToString).matches()) {
+            symbolWrapper = new SeparateSentenceSign(symbol);
+        } else if (Regex.WHITESPACE_PATTERN
+                .matcher(symbolCastedToString).matches()) {
+            symbolWrapper = new WhitespaceSign(symbol);
+        } else if (Regex.PUNCTUATION_PATTERN
+                .matcher(symbolCastedToString).matches()) {
+            symbolWrapper = new PunctuationSign(symbol);
+        } else {
+            symbolWrapper = new Letter(symbol);
         }
+
+        if (!flyweightSymbol.containsKey(symbolWrapper)) {
+            flyweightSymbol.put(symbolWrapper, new WeakReference<>(symbolWrapper));
+        }
+
+        return flyweightSymbol.get(symbolWrapper).get();
     }
 
     public char getSymbol() {
@@ -60,12 +82,12 @@ public abstract class Symbol implements LexicalElement{
         isWhitespace = whitespace;
     }
 
-    public boolean isSeparateSentence() {
-        return isSeparateSentence;
+    public boolean isSentenceSeparator() {
+        return isSentenceSeparator;
     }
 
-    public void setIsSeparateSentence(boolean separateSentence) {
-        isSeparateSentence = separateSentence;
+    public void setIsSentenceSeparator(boolean sentenceSeparator) {
+        isSentenceSeparator = sentenceSeparator;
     }
 
     public boolean isPunctuation() {

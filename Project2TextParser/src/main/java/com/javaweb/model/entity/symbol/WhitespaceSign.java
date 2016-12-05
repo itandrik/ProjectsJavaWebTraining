@@ -8,4 +8,8 @@ public class WhitespaceSign extends Symbol {
         super.setIsWhitespace(true);
     }
 
+    @Override
+    public String toString() {
+        return "\t\t|--Whitespace--\n";
+    }
 }

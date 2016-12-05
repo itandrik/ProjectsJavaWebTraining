@@ -1,4 +1,4 @@
-Preface
+Preface...
 Anyone involved with the open source community or using open source software knows there are tons
 of tools available on the market. Keeping up with these tools, and knowing which tools to use and
 how to use them, is an intimidating road to travel. We hope to simplify your journey by showing

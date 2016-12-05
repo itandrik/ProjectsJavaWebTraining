@@ -6,4 +6,8 @@ public class PunctuationSign extends Symbol {
         super(symbol);
         super.setIsPunctuation(true);
     }
+    @Override
+    public String toString() {
+        return "\t\t|Punctuation sign : " + getSymbol() + ";\n";
+    }
 }

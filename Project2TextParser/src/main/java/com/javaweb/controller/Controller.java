@@ -1,6 +1,7 @@
 package com.javaweb.controller;
 
 import com.javaweb.model.Model;
+import com.javaweb.model.entity.Text;
 import com.javaweb.view.View;
 
 
@@ -15,5 +16,10 @@ public class Controller {
 
     public void run() {
         model.createDOM(View.FILENAME);
+        Text text = model.getText();
+        model.writeDOMToFile(View.OUTPUT_FILENAME);
+        view.printMessage(text.toString());
+
+        model.sortWordsByFirstConsonant();
     }
 }

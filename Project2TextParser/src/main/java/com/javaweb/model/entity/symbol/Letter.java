@@ -6,4 +6,9 @@ public class Letter extends Symbol {
         super(symbol);
         super.setIsLetter(true);
     }
+
+    @Override
+    public String toString() {
+        return "\t\t\t|Letter : " + getSymbol() + ";\n";
+    }
 }
