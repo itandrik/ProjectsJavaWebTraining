@@ -11,7 +11,7 @@ public class Composite implements LexicalElement{
         this.elements = new LinkedList<>();
     }
 
-    public void swapWith(List<LexicalElement> elements){
+    /*public void swapWith(List<LexicalElement> elements){
         List<LexicalElement> temp = new LinkedList<>(this.elements);
 
         this.elements.clear();
@@ -23,7 +23,7 @@ public class Composite implements LexicalElement{
         for (LexicalElement element:temp) {
             elements.add(element);
         }
-    }
+    }*/
 
     @Override
     public void add(LexicalElement element) {

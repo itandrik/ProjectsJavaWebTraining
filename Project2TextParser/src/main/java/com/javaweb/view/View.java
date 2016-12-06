@@ -2,14 +2,16 @@ package com.javaweb.view;
 
 
 public class View {
-    public static final String FILENAME =
-            "D:/Studying/4Course/JavaTraining/ProjectsCode/" +
-                    "Project2TextParser/src/main/java/" +
-                    "com/javaweb/resources/programming_book.txt";
-    public static final String OUTPUT_FILENAME =
-            "D:/Studying/4Course/JavaTraining/ProjectsCode/" +
-                    "Project2TextParser/src/main/java/" +
-                    "com/javaweb/resources/parsed_programming_book.txt";
+    public static final String PROPERTY_PATH =
+            "src/main/configuration/config.properties";
+    public static final String PROPERTY_FILE_PATH =
+            "file.path";
+    public static final String PROPERTY_FILE_OUTPUT_NAME =
+            "file.name.output";
+    public static final String TEXT_PARSED =
+            "Book %s has been successfully parsed!!";
+    public static final String TEXT_WRITTEN_TO_FILE =
+            "Book %s has been successfully written to file!!";
 
     /**
      * @param message - array of strings for printing

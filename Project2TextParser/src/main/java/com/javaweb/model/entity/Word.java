@@ -14,27 +14,23 @@ public class Word implements LexicalElement {
 
     public boolean startsWithVowel() {
         List<LexicalElement> word = getListOfElements();
-        if(word.size() != 0) {
-            String firstSymbol = String.valueOf(((Symbol) word.get(0)).getSymbol());
-            return Regex.VOWEL_LETTER_PATTERN.matcher(firstSymbol).matches();
-        }
-        return false;
+        return word.size() != 0 &&
+                Regex.VOWEL_LETTER.matches(((Symbol) word.get(0)).getSymbol());
     }
 
     public Symbol getFirstConsonant(){
         for(LexicalElement symbol : getListOfElements()){
             Symbol result = (Symbol)symbol;
-            String SymbolString = String.valueOf((result).getSymbol());
-            if(Regex.CONSONANT_LETTER_PATTERN.matcher(SymbolString).matches()){
+            if(Regex.CONSONANT_LETTER.matches(result.getSymbol())){
                 return result;
             }
         }
         return null;
     }
 
-    public void swapWith(Word word){
+    /*public void swapWith(Word word){
         symbols.swapWith(word.getListOfElements());
-    }
+    }*/
 
     @Override
     public void add(LexicalElement element) {

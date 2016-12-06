@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public abstract class Symbol implements LexicalElement {
+public abstract class Symbol implements LexicalElement,Comparable{
     private static final WeakHashMap<Symbol, WeakReference<Symbol>>
             flyweightSymbol = new WeakHashMap<>();
     private char symbol;
@@ -33,19 +33,15 @@ public abstract class Symbol implements LexicalElement {
     }
 
     public static Symbol createSymbol(char symbol) {
-        String symbolCastedToString = String.valueOf(symbol);
 
         /* We are unconcerned with object creation cost,
         we are reducing overall memory consumption */
         Symbol symbolWrapper;
-        if (Regex.SENTENCE_SEPARATOR_PATTERN
-                .matcher(symbolCastedToString).matches()) {
+        if (Regex.SENTENCE_SEPARATOR.matches(symbol)) {
             symbolWrapper = new SeparateSentenceSign(symbol);
-        } else if (Regex.WHITESPACE_PATTERN
-                .matcher(symbolCastedToString).matches()) {
+        } else if (Regex.WHITESPACE.matches(symbol)) {
             symbolWrapper = new WhitespaceSign(symbol);
-        } else if (Regex.PUNCTUATION_PATTERN
-                .matcher(symbolCastedToString).matches()) {
+        } else if (Regex.PUNCTUATION.matches(symbol)) {
             symbolWrapper = new PunctuationSign(symbol);
         } else {
             symbolWrapper = new Letter(symbol);
@@ -56,6 +52,12 @@ public abstract class Symbol implements LexicalElement {
         }
 
         return flyweightSymbol.get(symbolWrapper).get();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return symbol > ((Symbol)o).getSymbol() ? 1 :
+                (symbol < ((Symbol)o).getSymbol() ? -1 : 0);
     }
 
     public char getSymbol() {

@@ -1,13 +1,13 @@
 package com.javaweb.model;
 
 
+import com.javaweb.model.dao.DAOFactory;
 import com.javaweb.model.entity.Sentence;
 import com.javaweb.model.entity.Text;
 import com.javaweb.model.entity.Word;
 import com.javaweb.model.entity.symbol.Symbol;
 
-import java.io.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
@@ -15,22 +15,25 @@ public class Model {
     private Word word;
     private Sentence sentence;
     private List<Word> wordsWithFirstVowel;
+    private DAOFactory factory;
 
+    private static final String ERROR_FILE_WRITE =
+            "ERROR, while writing text to file. No DOM model. " +
+                    "Create DOM before writing to file";
     public Model() {
         text = new Text();
         word = new Word();
         sentence = new Sentence();
-        wordsWithFirstVowel = new LinkedList<>();
+        wordsWithFirstVowel = new ArrayList<>();
+        factory = DAOFactory.getDAOFactory();
     }
 
-    public void createDOM(String filename) {
-        try (FileReader fir = new FileReader(filename);
-             BufferedReader reader = new BufferedReader(fir)) {
-
-            int c;
+    public void createDOM() {
+        if(factory != null){
+            String bookText = factory.getTextOfBook();
             Symbol previousSymbol = null;
-            while ((c = reader.read()) != -1) {
-                Symbol symbol = Symbol.createSymbol((char) c);
+            for (int i = 0; i < bookText.length(); i++) {
+                Symbol symbol = Symbol.createSymbol(bookText.charAt(i));
                 if (previousSymbol == null) {
                     previousSymbol = symbol;
                 }
@@ -45,16 +48,14 @@ public class Model {
                         parseWhitespaceAndPunctuation(previousSymbol, symbol);
                     }
                 } else {
-                    parseLetter(previousSymbol, symbol);
+                    parseLetter(symbol);
                 }
                 previousSymbol = symbol;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private void parseLetter(Symbol previousSymbol, Symbol symbol) {
+    private void parseLetter(Symbol symbol) {
         word.add(symbol);
     }
 
@@ -62,7 +63,7 @@ public class Model {
             Symbol previousSymbol, Symbol symbol) {
         if (previousSymbol.isLetter()) {
             sentence.add(word);
-            if(word.startsWithVowel()){
+            if (word.startsWithVowel()) {
                 wordsWithFirstVowel.add(word);
             }
             word = new Word();
@@ -75,7 +76,7 @@ public class Model {
                 previousSymbol.isPunctuation())) {
             sentence.add(word);
             text.add(sentence);
-            if(word.startsWithVowel()){
+            if (word.startsWithVowel()) {
                 wordsWithFirstVowel.add(word);
             }
             word = new Word();
@@ -84,12 +85,11 @@ public class Model {
         text.add(symbol);
     }
 
-    public void writeDOMToFile(String filename) {
-        try (PrintWriter out =
-                     new PrintWriter(new FileWriter(new File(filename)))) {
-            out.write(text.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void writeDOMToFile(Text text, String filename) {
+        if(text != null) {
+            factory.writeTextToFile(text, filename);
+        } else {
+            throw new RuntimeException(ERROR_FILE_WRITE);
         }
     }
 
@@ -98,6 +98,33 @@ public class Model {
     }
 
     public void sortWordsByFirstConsonant() {
+        wordsWithFirstVowel.sort((o1, o2) -> {
+            if (o1.getFirstConsonant() == null ||
+                    o2.getFirstConsonant() == null) {
+                return -1;
+            }
+            char o1FirstConsonant = Character.toLowerCase(
+                    o1.getFirstConsonant().getSymbol());
+            char o2FirstConsonant = Character.toLowerCase(
+                    o2.getFirstConsonant().getSymbol());
+            if (o1FirstConsonant > o2FirstConsonant) {
+                return 1;
+            } else if (o1FirstConsonant < o2FirstConsonant) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+    }
+
+    public List<Word> getWordsWithFirstVowel() {
+        return wordsWithFirstVowel;
+    }
+
+    /**
+     * It was method, that sorts all words in the text(not in the list)
+     */
+    /*public void sortWordsByFirstConsonant() {
         for (Word word:wordsWithFirstVowel) {
             System.out.print(word);
         }
@@ -126,5 +153,5 @@ public class Model {
         for (Word word:wordsWithFirstVowel) {
             System.out.print(word);
         }
-    }
+    }*/
 }

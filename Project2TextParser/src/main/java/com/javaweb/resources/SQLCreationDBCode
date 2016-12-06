@@ -1,0 +1,49 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema project2DB
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema project2DB
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `project2DB` DEFAULT CHARACTER SET utf8 ;
+USE `project2DB` ;
+
+-- -----------------------------------------------------
+-- Table `project2DB`.`author`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `project2DB`.`author` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NULL,
+  `second_name` VARCHAR(45) NULL,
+  `phone_number` VARCHAR(15) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `project2DB`.`book`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `project2DB`.`book` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `author_id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `content` LONGTEXT NULL,
+  PRIMARY KEY (`id`, `author_id`),
+  INDEX `fk_book_author_idx` (`author_id` ASC),
+  CONSTRAINT `fk_book_author`
+    FOREIGN KEY (`author_id`)
+    REFERENCES `project2DB`.`author` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
