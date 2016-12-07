@@ -12,7 +12,6 @@ Programming book :
 	|Sentence separator : .;
 	|Sentence separator : .;
 	|Sentence : 
-		|--Whitespace--
 		|Word : 
 			|Letter : A;
 			|Letter : n;
@@ -126,8 +125,6 @@ Programming book :
 			|Letter : o;
 			|Letter : n;
 			|Letter : s;
-		|--Whitespace--
-		|Word : 
 			|Letter : o;
 			|Letter : f;
 		|--Whitespace--
@@ -243,8 +240,6 @@ Programming book :
 			|Letter : a;
 			|Letter : n;
 			|Letter : d;
-		|--Whitespace--
-		|Word : 
 			|Letter : h;
 			|Letter : o;
 			|Letter : w;
@@ -358,8 +353,6 @@ Programming book :
 			|Letter : i;
 			|Letter : n;
 			|Letter : g;
-		|--Whitespace--
-		|Word : 
 			|Letter : c;
 			|Letter : o;
 			|Letter : n;
@@ -473,7 +466,6 @@ Programming book :
 			|Letter : y;
 	|Sentence separator : .;
 	|Sentence : 
-		|--Whitespace--
 		|Word : 
 			|Letter : W;
 			|Letter : e;
@@ -588,8 +580,6 @@ Programming book :
 			|Letter : i;
 			|Letter : n;
 			|Letter : g;
-		|--Whitespace--
-		|Word : 
 			|Letter : J;
 			|Letter : a;
 			|Letter : v;
@@ -711,8 +701,6 @@ Programming book :
 			|Letter : a;
 			|Letter : r;
 			|Letter : e;
-		|--Whitespace--
-		|Word : 
 			|Letter : c;
 			|Letter : o;
 			|Letter : m;
@@ -820,8 +808,6 @@ Programming book :
 			|Letter : a;
 			|Letter : n;
 			|Letter : y;
-		|--Whitespace--
-		|Word : 
 			|Letter : J;
 			|Letter : a;
 			|Letter : v;

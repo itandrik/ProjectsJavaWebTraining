@@ -18,14 +18,14 @@ public class Word implements LexicalElement {
                 Regex.VOWEL_LETTER.matches(((Symbol) word.get(0)).getSymbol());
     }
 
-    public Symbol getFirstConsonant(){
-        for(LexicalElement symbol : getListOfElements()){
-            Symbol result = (Symbol)symbol;
-            if(Regex.CONSONANT_LETTER.matches(result.getSymbol())){
+    public Symbol getFirstConsonant() {
+        for (LexicalElement symbol : getListOfElements()) {
+            Symbol result = (Symbol) symbol;
+            if (Regex.CONSONANT_LETTER.matches(result.getSymbol())) {
                 return result;
             }
         }
-        return null;
+        return Symbol.createSymbol('z');
     }
 
     /*public void swapWith(Word word){

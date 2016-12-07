@@ -28,30 +28,35 @@ public class Model {
         factory = DAOFactory.getDAOFactory();
     }
 
-    public void createDOM() {
+    public boolean createDOM() {
         if(factory != null){
             String bookText = factory.getTextOfBook();
-            Symbol previousSymbol = null;
-            for (int i = 0; i < bookText.length(); i++) {
-                Symbol symbol = Symbol.createSymbol(bookText.charAt(i));
-                if (previousSymbol == null) {
+            if(bookText != null) {
+                Symbol previousSymbol = null;
+                for (int i = 0; i < bookText.length(); i++) {
+                    Symbol symbol = Symbol.createSymbol(bookText.charAt(i));
+                    if (previousSymbol == null) {
+                        previousSymbol = symbol;
+                    }
+                    if (symbol.isSentenceSeparator()) {
+                        parseSentenceSeparator(previousSymbol, symbol);
+                    } else if (symbol.isWhitespace() ||
+                            symbol.isPunctuation()) {
+                        if (!(symbol.isWhitespace() &&
+                                previousSymbol.isWhitespace())) {
+                            parseWhitespaceAndPunctuation(previousSymbol, symbol);
+                        }
+                    } else {
+                        parseLetter(symbol);
+                    }
                     previousSymbol = symbol;
                 }
-                if (symbol.isSentenceSeparator()) {
-                    parseSentenceSeparator(previousSymbol, symbol);
-                } else if (symbol.isWhitespace() ||
-                        symbol.isPunctuation()) {
-                    if (symbol.isWhitespace() &&
-                            previousSymbol.isWhitespace()) {
-                        continue;
-                    } else {
-                        parseWhitespaceAndPunctuation(previousSymbol, symbol);
-                    }
-                } else {
-                    parseLetter(symbol);
-                }
-                previousSymbol = symbol;
+                return true;
+            } else {
+                return false;
             }
+        } else {
+            return false;
         }
     }
 
@@ -99,26 +104,20 @@ public class Model {
 
     public void sortWordsByFirstConsonant() {
         wordsWithFirstVowel.sort((o1, o2) -> {
-            if (o1.getFirstConsonant() == null ||
-                    o2.getFirstConsonant() == null) {
-                return -1;
-            }
             char o1FirstConsonant = Character.toLowerCase(
                     o1.getFirstConsonant().getSymbol());
             char o2FirstConsonant = Character.toLowerCase(
                     o2.getFirstConsonant().getSymbol());
-            if (o1FirstConsonant > o2FirstConsonant) {
-                return 1;
-            } else if (o1FirstConsonant < o2FirstConsonant) {
-                return -1;
-            } else {
-                return 0;
-            }
+            return o1FirstConsonant - o2FirstConsonant;
         });
     }
 
     public List<Word> getWordsWithFirstVowel() {
         return wordsWithFirstVowel;
+    }
+
+    public String getInputFileName(){
+        return factory.getInputFileName();
     }
 
     /**
