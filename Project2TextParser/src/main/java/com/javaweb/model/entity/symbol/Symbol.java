@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 /**
- * Symbol.java
- * <t>
  * Abstract class for all symbols. Has 4 states. Has
  * realisation of "Flyweight" pattern. Defines symbol in the text.
  * It is leaf in the "Composite".
@@ -70,8 +68,7 @@ public abstract class Symbol implements LexicalElement, Comparable {
      * correct instance of symbol.
      *
      * @param symbol symbol from text
-     * @return instance of symbol according
-     *         to character element
+     * @return instance of symbol according to character element
      */
     public static Symbol createSymbol(char symbol) {
 
@@ -99,15 +96,15 @@ public abstract class Symbol implements LexicalElement, Comparable {
 
     /**
      * Make class comparable
-     * @param o object of another Symbol
-     * @return 1    - this > o
-     *         -1   - this < o
-     *         0    - this == o
+     *
+     * @param       o object of another Symbol
+     * @return      - this bigger o then 1
+     *              - this smaller o then -1
+     *              - this == o then 0
      */
     @Override
     public int compareTo(Object o) {
-        return symbol > ((Symbol) o).getSymbol() ? 1 :
-                (symbol < ((Symbol) o).getSymbol() ? -1 : 0);
+        return symbol - ((Symbol) o).getSymbol();
     }
 
     public char getSymbol() {

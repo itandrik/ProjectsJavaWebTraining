@@ -1,8 +1,6 @@
 package com.javaweb.model.entity.symbol;
 
 /**
- * SeparateSentenceSign.java
- * <t>
  * Class that shows sentence separator object behaviour
  *
  * @author Andrii Chernysh

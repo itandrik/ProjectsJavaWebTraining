@@ -5,8 +5,6 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * DatabaseDAO.java
- * <t>
  * DAO, that gets text from database.
  * Here are some basic methods of working
  * with MySql database.

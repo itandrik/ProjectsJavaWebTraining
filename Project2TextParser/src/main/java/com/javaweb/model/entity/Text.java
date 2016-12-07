@@ -3,9 +3,22 @@ package com.javaweb.model.entity;
 
 import java.util.List;
 
-public class Text implements LexicalElement{
+/**
+ * Class that describes text in the DOM model.
+ * It is root for DOM.
+ *
+ * @author Andrii Chernysh
+ * @version 1.0, 07 Dec 2016
+ */
+public class Text implements LexicalElement {
+    /**
+     * List of sentences
+     */
     private Composite sentences;
 
+    /**
+     * Initialising list of sentences
+     */
     public Text() {
         this.sentences = new Composite();
     }

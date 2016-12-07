@@ -3,8 +3,6 @@ package com.javaweb.controller;
 import java.util.prefs.Preferences;
 
 /**
- * DatabaseConfigurator.java
- * <t>
  * It is good practice for storing password and username of database
  *
  * @author Andrii Chernysh

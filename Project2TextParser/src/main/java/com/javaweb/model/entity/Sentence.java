@@ -3,9 +3,21 @@ package com.javaweb.model.entity;
 
 import java.util.List;
 
-public class Sentence implements LexicalElement{
+/**
+ * Class that describes sentence in the DOM model
+ *
+ * @author Andrii Chernysh
+ * @version 1.0, 07 Dec 2016
+ */
+public class Sentence implements LexicalElement {
+    /**
+     * List of words
+     */
     private Composite words;
 
+    /**
+     * Initialising list of words
+     */
     public Sentence() {
         this.words = new Composite();
     }

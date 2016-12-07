@@ -1,8 +1,6 @@
 package com.javaweb.model.entity.symbol;
 
 /**
- * WhitespaceSign.java
- * <t>
  * Class that shows whitespace object behaviour
  *
  * @author Andrii Chernysh

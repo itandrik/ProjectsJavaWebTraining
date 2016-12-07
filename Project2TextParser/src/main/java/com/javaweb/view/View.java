@@ -1,8 +1,6 @@
 package com.javaweb.view;
 
 /**
- * View.java
- * <p>
  * It is class, which contains String constants
  * in order to show tips for user in the console.
  * In the future we can change UI by simple steps.

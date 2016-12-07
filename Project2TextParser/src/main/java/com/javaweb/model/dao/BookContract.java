@@ -1,8 +1,6 @@
 package com.javaweb.model.dao;
 
 /**
- * BookContract.java
- * <t>
  * It is good practice to show structure of database
  * in the 'contract' class. Here are name of tables and
  * columns of these tables. Also here are sql queries.

@@ -1,8 +1,6 @@
 package com.javaweb.model.entity.symbol;
 
 /**
- * Letter.java
- * <t>
  * Class that shows letter object behaviour
  *
  * @author Andrii Chernysh

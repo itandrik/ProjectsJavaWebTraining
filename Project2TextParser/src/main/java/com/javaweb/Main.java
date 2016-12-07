@@ -6,8 +6,6 @@ import com.javaweb.model.Model;
 import com.javaweb.view.View;
 
 /**
- * Main.java
- * <p>
  * Start point of the Text Parser.
  * Here we will start controller {@link Controller}
  *

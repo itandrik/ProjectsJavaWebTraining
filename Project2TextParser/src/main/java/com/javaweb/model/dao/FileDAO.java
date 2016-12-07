@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * FileDAO.java
- * <t>
  * DAO, that gets text from file.
  * Here are some basic methods of working
  * with {@link BufferedReader}.

@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * DAOFactory.java
- * <t>
  * Factory for pattern 'Data Access Object'. Here are choosing of
  * file input or database input, using config file.
  *

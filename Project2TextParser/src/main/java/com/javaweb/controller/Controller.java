@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Controller.java
- * <t>
  * This is class, that use {@link Model} and {@link View} to
  * show how program works. Just start it with method {@link #run()}
  *
@@ -44,13 +42,14 @@ public class Controller {
     /**
      * Get string from property file
      *
+     * @param configFile   path of config file
      * @param propertyName property, which you want to get from config file
-     * @return string with property from config file
+     * @return string with  property from config file
      */
-    private String getProperty(String propertyName) {
+    public String getProperty(String configFile, String propertyName) {
         Properties properties = new Properties();
         String result = null;
-        try (FileInputStream stream = new FileInputStream(View.PROPERTY_PATH)) {
+        try (FileInputStream stream = new FileInputStream(configFile)) {
             properties.load(stream);
             result = properties.getProperty(propertyName);
         } catch (IOException e) {
@@ -68,8 +67,10 @@ public class Controller {
             Text text = model.getText();    //Text is root of DOM
             model.writeDOMToFile(           //Write to file from config file
                     text,
-                    getProperty(View.PROPERTY_FILE_PATH) +
-                            getProperty(View.PROPERTY_FILE_OUTPUT_NAME)
+                    getProperty(View.PROPERTY_PATH,
+                            View.PROPERTY_FILE_PATH) +
+                            getProperty(View.PROPERTY_PATH,
+                                    View.PROPERTY_FILE_OUTPUT_NAME)
             );
 
             view.printlnMessage(String.format(
@@ -79,7 +80,8 @@ public class Controller {
             view.printlnMessage(String.format(
                     View.TEXT_WRITTEN_TO_FILE,
                     model.getInputFileName(),
-                    getProperty(View.PROPERTY_FILE_OUTPUT_NAME)
+                    getProperty(View.PROPERTY_PATH,
+                            View.PROPERTY_FILE_OUTPUT_NAME)
             ));
 
             /* Sorting from variant #8 */

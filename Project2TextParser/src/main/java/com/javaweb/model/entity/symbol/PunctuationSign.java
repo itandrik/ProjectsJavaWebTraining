@@ -1,8 +1,6 @@
 package com.javaweb.model.entity.symbol;
 
 /**
- * PunctuationSign.java
- * <t>
  * Class that shows punctuation mark object behaviour
  *
  * @author Andrii Chernysh
