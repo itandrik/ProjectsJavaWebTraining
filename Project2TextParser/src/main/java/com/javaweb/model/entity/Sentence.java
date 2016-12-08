@@ -9,29 +9,25 @@ import java.util.List;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class Sentence implements LexicalElement {
+public class Sentence extends Composite {
     /**
-     * List of words
+     * Adding punctuation marks and words to sentence
+     *
+     * @param previousSymbol previous symbol from text
+     * @param symbol         symbol from text
      */
-    private Composite words;
-
-    /**
-     * Initialising list of words
-     */
-    public Sentence() {
-        this.words = new Composite();
+    public void parseWhitespaceAndPunctuation(
+            Word word, List<Word> wordsWithFirstVowel,
+            Symbol previousSymbol, Symbol symbol) {
+        if (previousSymbol.getSymbolType() == SymbolType.LETTER) {
+            add(word);
+            if (word.startsWithVowel()) {
+                wordsWithFirstVowel.add(word);
+            }
+            word = new Word();
+        }
+        add(symbol);
     }
-
-    @Override
-    public void add(LexicalElement word) {
-        words.add(word);
-    }
-
-    @Override
-    public List<LexicalElement> getListOfElements() {
-        return words.getListOfElements();
-    }
-
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("\t|Sentence : \n");

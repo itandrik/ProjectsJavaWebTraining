@@ -1,8 +1,5 @@
-package com.javaweb.model.entity.symbol;
+package com.javaweb.model.entity;
 
-
-import com.javaweb.model.entity.LexicalElement;
-import com.javaweb.model.entity.Regex;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -16,29 +13,28 @@ import java.util.WeakHashMap;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public abstract class Symbol implements LexicalElement, Comparable {
+public class Symbol implements LexicalElement, Comparable {
     /**
      * Weak reference are not restricted to these hash tables.
      */
-    private static final WeakHashMap<Symbol, WeakReference<Symbol>>
+    private static final WeakHashMap<Character, WeakReference<Symbol>>
             flyweightSymbol = new WeakHashMap<>();
     /**
      * Character of symbol
      */
     private char symbol;
+
     /* States of symbol. It will work faster that checking with "instanceof" */
-    private boolean isLetter = false;
-    private boolean isWhitespace = false;
-    private boolean isSentenceSeparator = false;
-    private boolean isPunctuation = false;
+    private SymbolType symbolType;
 
     /**
      * Default constructor
      *
      * @param symbol character of symbol
      */
-    public Symbol(char symbol) {
+    private Symbol(char symbol, SymbolType symbolType) {
         this.symbol = symbol;
+        this.symbolType = symbolType;
     }
 
     /**
@@ -71,36 +67,34 @@ public abstract class Symbol implements LexicalElement, Comparable {
      * @return instance of symbol according to character element
      */
     public static Symbol createSymbol(char symbol) {
+        /* Return Symbol object with minimal resources */
+        if (flyweightSymbol.containsKey(symbol)) {
+            return flyweightSymbol.get(symbol).get();
+        }
 
         /* We are unconcerned with object creation cost,
         we are reducing overall memory consumption */
         Symbol symbolWrapper;
         if (Regex.SENTENCE_SEPARATOR.matches(symbol)) {
-            symbolWrapper = new SeparateSentenceSign(symbol);
+            symbolWrapper = new Symbol(symbol, SymbolType.SENTENCE_SEPARATOR);
         } else if (Regex.WHITESPACE.matches(symbol)) {
-            symbolWrapper = new WhitespaceSign(symbol);
+            symbolWrapper = new Symbol(symbol, SymbolType.WHITESPACE);
         } else if (Regex.PUNCTUATION.matches(symbol)) {
-            symbolWrapper = new PunctuationSign(symbol);
+            symbolWrapper = new Symbol(symbol, SymbolType.PUNCTUATION);
         } else {
-            symbolWrapper = new Letter(symbol);
+            symbolWrapper = new Symbol(symbol, SymbolType.LETTER);
         }
 
-        /* Put to HashMap */
-        if (!flyweightSymbol.containsKey(symbolWrapper)) {
-            flyweightSymbol.put(symbolWrapper, new WeakReference<>(symbolWrapper));
-        }
-
-        /* Return Symbol object with minimal resources*/
-        return flyweightSymbol.get(symbolWrapper).get();
+        /* Put object to HashMap */
+        flyweightSymbol.put(symbol, new WeakReference<Symbol>(symbolWrapper));
+        return symbolWrapper;
     }
 
     /**
      * Make class comparable
      *
-     * @param       o object of another Symbol
-     * @return      - this bigger o then 1
-     *              - this smaller o then -1
-     *              - this == o then 0
+     * @param o object of another Symbol
+     * @return - this bigger o then 1 - this smaller o then -1 - this == o then 0
      */
     @Override
     public int compareTo(Object o) {
@@ -115,35 +109,12 @@ public abstract class Symbol implements LexicalElement, Comparable {
         this.symbol = symbol;
     }
 
-    public boolean isLetter() {
-        return isLetter;
+    public SymbolType getSymbolType() {
+        return symbolType;
     }
 
-    public void setIsLetter(boolean letter) {
-        isLetter = letter;
-    }
-
-    public boolean isWhitespace() {
-        return isWhitespace;
-    }
-
-    public void setIsWhitespace(boolean whitespace) {
-        isWhitespace = whitespace;
-    }
-
-    public boolean isSentenceSeparator() {
-        return isSentenceSeparator;
-    }
-
-    public void setIsSentenceSeparator(boolean sentenceSeparator) {
-        isSentenceSeparator = sentenceSeparator;
-    }
-
-    public boolean isPunctuation() {
-        return isPunctuation;
-    }
-
-    public void setIsPunctuation(boolean punctuation) {
-        isPunctuation = punctuation;
+    @Override
+    public String toString() {
+        return symbolType.getFormattedString(symbol);
     }
 }

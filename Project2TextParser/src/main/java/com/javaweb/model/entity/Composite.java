@@ -13,7 +13,7 @@ import java.util.List;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class Composite implements LexicalElement {
+public abstract class Composite implements LexicalElement {
     /**
      * List of elements in another element
      */

@@ -1,13 +1,7 @@
 package com.javaweb.model;
 
 import com.javaweb.model.dao.DAOFactory;
-import com.javaweb.model.entity.LexicalElement;
-import com.javaweb.model.entity.Text;
-import com.javaweb.model.entity.Word;
-import com.javaweb.model.entity.symbol.PunctuationSign;
-import com.javaweb.model.entity.symbol.SeparateSentenceSign;
-import com.javaweb.model.entity.symbol.Symbol;
-import com.javaweb.model.entity.symbol.WhitespaceSign;
+import com.javaweb.model.entity.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,16 +57,16 @@ public class ModelTest {
                         "\t\t\t|Letter : l;\n",
                         "\t\t\t|Letter : o;\n"
                 ).toString());
-        Assert.assertTrue("Second symbol is not whitespace",
-                helloWorldSentence.getListOfElements().get(1)
-                        instanceof WhitespaceSign);
+        LexicalElement whitespace = helloWorldSentence.getListOfElements().get(1);
+        Assert.assertTrue("Second symbol is whitespace",
+                ((Symbol)whitespace).getSymbolType() == SymbolType.WHITESPACE);
         LexicalElement comma = helloWorldSentence.getListOfElements().get(2);
-        Assert.assertTrue("Third symbol is not comma.",
-                (comma instanceof PunctuationSign) &&
-                        (((PunctuationSign) comma).getSymbol() == ','));
-        Assert.assertTrue("Last symbol is not '.'",
-                text.getListOfElements().get(1) instanceof
-                        SeparateSentenceSign);
+        Assert.assertTrue("Third symbol is comma.",
+                (((Symbol)comma)).getSymbolType() == SymbolType.PUNCTUATION &&
+                        (((Symbol) comma).getSymbol() == ','));
+        Assert.assertTrue("Last symbol is '.'",
+                ((Symbol)text.getListOfElements().get(1)).getSymbolType() ==
+                        SymbolType.SENTENCE_SEPARATOR);
     }
 
     @Test

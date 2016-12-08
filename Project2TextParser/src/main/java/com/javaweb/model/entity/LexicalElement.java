@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Interface, that shows what parser can do
  * with every class. {@link Text}, {@link Word},
- * {@link Sentence} and {@link com.javaweb.model.entity.symbol.Symbol}
+ * {@link Sentence} and {@link Symbol}
  * implements this interface
  *
  * @author Andrii Chernysh

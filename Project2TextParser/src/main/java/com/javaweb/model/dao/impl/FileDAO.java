@@ -1,5 +1,8 @@
-package com.javaweb.model.dao;
+package com.javaweb.model.dao.impl;
 
+
+import com.javaweb.model.dao.DAOFactory;
+import com.javaweb.model.dao.IFileDAO;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,16 +17,11 @@ import java.io.IOException;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class FileDAO extends DAOFactory {
+public class FileDAO extends DAOFactory implements IFileDAO {
     /**
      * Name of file
      */
     private String filename;
-    /**
-     * Error of filename for book. Invalid filename
-     */
-    private static final String ERROR_NO_SUCH_BOOK =
-            "No such book in your path in config file!!!";
 
     /**
      * Default constructor
@@ -37,7 +35,7 @@ public class FileDAO extends DAOFactory {
     /**
      * @return {@link BufferedReader} instance for some book
      */
-    private BufferedReader getReader() {
+    public BufferedReader getReader() {
         FileReader fir;
         try {
             fir = new FileReader(filename);

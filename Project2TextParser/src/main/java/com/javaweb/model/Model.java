@@ -2,10 +2,7 @@ package com.javaweb.model;
 
 
 import com.javaweb.model.dao.DAOFactory;
-import com.javaweb.model.entity.Sentence;
-import com.javaweb.model.entity.Text;
-import com.javaweb.model.entity.Word;
-import com.javaweb.model.entity.symbol.Symbol;
+import com.javaweb.model.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,16 +71,26 @@ public class Model {
                     if (previousSymbol == null) {
                         previousSymbol = symbol;
                     }
-                    if (symbol.isSentenceSeparator()) { // When '.', '!', '?'
-                        parseSentenceSeparator(previousSymbol, symbol);
-                    } else if (symbol.isWhitespace() || // When whitespace or comma,etc.
-                            symbol.isPunctuation()) {
-                        if (!(symbol.isWhitespace() &&  // If double whitespace -> skip
-                                previousSymbol.isWhitespace())) {
-                            parseWhitespaceAndPunctuation(previousSymbol, symbol);
+                    if (symbol.getSymbolType() == SymbolType.SENTENCE_SEPARATOR) { // When '.', '!', '?'
+                        text.parseSentenceSeparator(previousSymbol, symbol,
+                                sentence,word,wordsWithFirstVowel);
+                        if (!(previousSymbol.getSymbolType() == SymbolType.SENTENCE_SEPARATOR ||
+                                previousSymbol.getSymbolType() == SymbolType.PUNCTUATION)) {
+                            word = new Word();
+                            sentence = new Sentence();
+                        }
+                    } else if (symbol.getSymbolType() == SymbolType.WHITESPACE || // When whitespace or comma,etc.
+                            symbol.getSymbolType() == SymbolType.PUNCTUATION) {
+                        if (!(symbol.getSymbolType() == SymbolType.WHITESPACE &&  // If double whitespace -> skip
+                                previousSymbol.getSymbolType() == SymbolType.WHITESPACE)) {
+                            sentence.parseWhitespaceAndPunctuation(
+                                    word,wordsWithFirstVowel, previousSymbol, symbol);
+                            if (previousSymbol.getSymbolType() == SymbolType.LETTER) {
+                                word = new Word();
+                            }
                         }
                     } else {
-                        parseLetter(symbol);
+                        word.parse(symbol);
                     }
                     previousSymbol = symbol;
                 }
@@ -94,53 +101,6 @@ public class Model {
         } else {
             return false;           // DOM model not created
         }
-    }
-
-    /**
-     * Adding letter to word
-     *
-     * @param symbol symbol from text
-     */
-    private void parseLetter(Symbol symbol) {
-        word.add(symbol);
-    }
-
-    /**
-     * Adding punctuation marks and words to sentence
-     *
-     * @param previousSymbol previous symbol from text
-     * @param symbol         symbol from text
-     */
-    private void parseWhitespaceAndPunctuation(
-            Symbol previousSymbol, Symbol symbol) {
-        if (previousSymbol.isLetter()) {
-            sentence.add(word);
-            if (word.startsWithVowel()) {
-                wordsWithFirstVowel.add(word);
-            }
-            word = new Word();
-        }
-        sentence.add(symbol);
-    }
-
-    /**
-     * Add sentence and sentence separators to Text
-     *
-     * @param previousSymbol previous symbol from text
-     * @param symbol         symbol from text
-     */
-    private void parseSentenceSeparator(Symbol previousSymbol, Symbol symbol) {
-        if (!(previousSymbol.isSentenceSeparator() ||
-                previousSymbol.isPunctuation())) {
-            sentence.add(word);
-            text.add(sentence);
-            if (word.startsWithVowel()) {
-                wordsWithFirstVowel.add(word);
-            }
-            word = new Word();
-            sentence = new Sentence();
-        }
-        text.add(symbol);
     }
 
     /**

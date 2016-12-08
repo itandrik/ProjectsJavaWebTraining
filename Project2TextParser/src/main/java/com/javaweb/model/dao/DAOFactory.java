@@ -1,6 +1,9 @@
 package com.javaweb.model.dao;
 
 
+import com.javaweb.controller.BookPreferences;
+import com.javaweb.model.dao.impl.DatabaseDAO;
+import com.javaweb.model.dao.impl.FileDAO;
 import com.javaweb.model.entity.Text;
 
 import java.io.*;
@@ -13,37 +16,20 @@ import java.util.Properties;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public abstract class DAOFactory {
+public abstract class DAOFactory implements IFactoryDAO {
     /**
-     * Path for config file
+     * Preferences with paths to file for
+     * parsing and to configuration file
      */
-    protected static final String PROPERTY_PATH =
-            "D:/Studying/4Course/JavaTraining/ProjectsCode/" +
-                    "Project2TextParser/src/main/java/com/javaweb/" +
-                    "configuration/config.properties";
+    private static BookPreferences preferences = BookPreferences.getInstance();
 
     /* Here are some strings for getting information from config file */
     private static final String DATA_FROM = "data.from";
     private static final String DATA_FROM_DB = "database";
     private static final String DATA_FROM_FILE = "file";
-    private static final String FILE_PATH = "file.path";
     protected static final String FILE_NAME = "file.name";
     private static final String ERROR_NO_FILE =
             "No config file!!!";
-
-    /**
-     * Gets text from book. From file or database
-     *
-     * @return string with text in the book
-     */
-    public abstract String getTextOfBook();
-
-    /**
-     * Uses for pretty view in the controller
-     *
-     * @return string with file name from file or database
-     */
-    public abstract String getInputFileName();
 
     /**
      * It creates instance of DAO according to config file
@@ -52,15 +38,16 @@ public abstract class DAOFactory {
      */
     public static DAOFactory getDAOFactory() {
         Properties property = new Properties();
-        try (FileInputStream stream = new FileInputStream(PROPERTY_PATH)) {
+        try (FileInputStream stream = new FileInputStream(
+                preferences.getConfigurationPath())) {
             property.load(stream);
             if (property.getProperty(
                     DATA_FROM, DATA_FROM_FILE).equals(DATA_FROM_FILE)) {
-                return new FileDAO(property.getProperty(FILE_PATH) + //From file
+                return new FileDAO(preferences.getFilePath() + //From file
                         property.getProperty(FILE_NAME));
             } else if (property.getProperty(
                     DATA_FROM, DATA_FROM_FILE).equals(DATA_FROM_DB)) {
-                return new DatabaseDAO();                                   //From database
+                return new DatabaseDAO();               //From database
             }
         } catch (IOException ex) {
             System.err.println(ERROR_NO_FILE);          // No such file
@@ -75,7 +62,8 @@ public abstract class DAOFactory {
      */
     protected Properties getProperty() {
         Properties property = new Properties();
-        try (FileInputStream stream = new FileInputStream(PROPERTY_PATH)) {
+        try (FileInputStream stream = new FileInputStream(
+                BookPreferences.getInstance().getConfigurationPath())) {
             property.load(stream);
         } catch (IOException e) {
             e.printStackTrace();

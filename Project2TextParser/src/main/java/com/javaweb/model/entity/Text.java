@@ -10,29 +10,30 @@ import java.util.List;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class Text implements LexicalElement {
+public class Text extends Composite {
+    private Word word;
+    private Sentence sentence;
     /**
-     * List of sentences
+     * Add sentence and sentence separators to Text
+     *
+     * @param previousSymbol previous symbol from text
+     * @param symbol         symbol from text
      */
-    private Composite sentences;
-
-    /**
-     * Initialising list of sentences
-     */
-    public Text() {
-        this.sentences = new Composite();
+    public void parseSentenceSeparator(
+            Symbol previousSymbol, Symbol symbol,
+            Sentence sentence, Word word, List<Word> wordsWithFirstVowel) {
+        if (!(previousSymbol.getSymbolType() == SymbolType.SENTENCE_SEPARATOR ||
+                previousSymbol.getSymbolType() == SymbolType.PUNCTUATION)) {
+            sentence.add(word);
+            add(sentence);
+            if (word.startsWithVowel()) {
+                wordsWithFirstVowel.add(word);
+            }
+            word = new Word();
+            sentence = new Sentence();
+        }
+        add(symbol);
     }
-
-    @Override
-    public void add(LexicalElement element) {
-        sentences.add(element);
-    }
-
-    @Override
-    public List<LexicalElement> getListOfElements() {
-        return sentences.getListOfElements();
-    }
-
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("Programming book : \n");

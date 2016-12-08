@@ -1,8 +1,6 @@
 package com.javaweb.model.entity;
 
 
-import com.javaweb.model.entity.symbol.Symbol;
-
 import java.util.List;
 
 /**
@@ -11,19 +9,7 @@ import java.util.List;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class Word implements LexicalElement {
-    /**
-     * List of symbols in the word
-     */
-    private Composite symbols;
-
-    /**
-     * Initialising list of symbols
-     */
-    public Word() {
-        this.symbols = new Composite();
-    }
-
+public class Word extends Composite{
     /**
      * Checking if word has vowel beginning
      *
@@ -49,20 +35,20 @@ public class Word implements LexicalElement {
         }
         return Symbol.createSymbol('z');
     }
+
+    /**
+     * Adding letter to word
+     *
+     * @param symbol symbol from text
+     */
+    public void parse(Symbol symbol){
+        add(symbol);
+    }
+
     /* Method, that is needed for exchanging words in the (@link Text} */
     /*public void swapWith(Word word){
         symbols.swapWith(word.getListOfElements());
     }*/
-
-    @Override
-    public void add(LexicalElement element) {
-        symbols.add(element);
-    }
-
-    @Override
-    public List<LexicalElement> getListOfElements() {
-        return symbols.getListOfElements();
-    }
 
     @Override
     public String toString() {

@@ -1,5 +1,9 @@
-package com.javaweb.model.dao;
+package com.javaweb.model.dao.impl;
 
+
+import com.javaweb.model.dao.BookContract;
+import com.javaweb.model.dao.DAOFactory;
+import com.javaweb.model.dao.IDatabaseDAO;
 
 import java.sql.*;
 import java.util.Properties;
@@ -12,28 +16,7 @@ import java.util.Properties;
  * @author Andrii Chernysh
  * @version 1.0, 07 Dec 2016
  */
-public class DatabaseDAO extends DAOFactory implements BookContract {
-    /* Here are some strings for getting information from config file */
-    private static final String JDBC_DRIVER_CONFIG = "db.driver";
-    private static final String DB_URL_CONFIG = "db.url";
-
-    /**
-     * It is better to store password and username for database
-     * not in the config file. But we work only with console,
-     * so it is impossible to read secure from it.
-     */
-    private static final String USERNAME_CONFIG = "db.username";
-    private static final String PASSWORD_CONFIG = "db.password";
-    private static final String BOOK_NAME_CONFIG = "db.book_name";
-
-    /* Strings for errors for working with database */
-    private static final String ERROR_CREATING_CONNECTION =
-            "Error, while creating connection with database %s";
-    private static final String ERROR_CLOSING_CONNECTION =
-            "Error, while closing connection with database";
-    private static final String ERROR_SQL_QUERY_STATEMENT =
-            "Error, while query sql code \"%s\"";
-
+public class DatabaseDAO extends DAOFactory implements IDatabaseDAO, BookContract {
     /**
      * Connection instance
      */
@@ -54,7 +37,7 @@ public class DatabaseDAO extends DAOFactory implements BookContract {
     /**
      * Creating connection with database
      */
-    private void createConnection() {
+    public void createConnection() {
         String jdbcDriver = property.getProperty(JDBC_DRIVER_CONFIG);
         String dbUrl = property.getProperty(DB_URL_CONFIG);
         String username = property.getProperty(USERNAME_CONFIG);
@@ -70,7 +53,7 @@ public class DatabaseDAO extends DAOFactory implements BookContract {
     /**
      * Closing connection with database
      */
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
         } catch (SQLException e) {
